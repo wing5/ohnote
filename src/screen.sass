@@ -1,0 +1,41 @@
+// This import applies a global reset to any page that imports this stylesheet.
+@import blueprint/reset.sass
+// To configure blueprint, edit the partials/base.sass file.
+@import partials/base.sass
+// Import all the default blueprint modules so that we can access their mixins.
+@import blueprint
+
+html
+  :height 101%
+body
+  :height 101%
+  #container
+    +container
+    :height 101%
+  #header, #footer
+    +column(!blueprint_grid_columns)
+  #sidebar
+    // One third of the grid columns, rounding down. With 24 cols, this is 8.
+    !sidebar_columns = floor(!blueprint_grid_columns / 3)
+    +column(!sidebar_columns)
+  #content
+    !content_columns = ceil(2 * !blueprint_grid_columns / 3)
+    +column(!content_columns, true)
+    li
+      :list-style-type none
+      :width 400px
+      :background-color #eee
+      :padding-left 40px
+      :border 1px solid #ccc
+      :margin-bottom 10px
+    li:hover
+      :cursor move
+      :cursor -moz-grab
+    .ihaveabullet
+      :list-style
+        :type disc
+        :position inside
+    textarea
+      :border 1px solid #fff
+      :height 1.5em
+      :width 360px

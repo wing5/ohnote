@@ -1,0 +1,17 @@
+jotfox
+
+webapp built with javascript and couchdb
+
+idea: single column list of textareas used for managing information or to-do lists. each textarea can be checked off as done and dragged around the page.
+
+behavior: focusing a textarea causes a new textarea to appear below it. pressing <enter> moves the cursor into the next adjacent textarea. pressing tab gives the current textarea extra left padding and a bullet, so it's indented.
+
+data: text is saved when its textarea loses focus. the current active textarea should have a colorful border of some kind
+
+future: multiple columns, multiple pages
+
+future idea: ability to type commands into textareas (e.g. 'calendar', 'picture', 'sketch') and have a widget appear (e.g. a jqueryui calendar, a file uploader, a canvas element for drawing sketches on)
+
+since this is just a fun project for us we shouldn't worry too much about supporting every browser and screen size
+
+inspiration: todoist, etherpad, tadalist, teuxdeux

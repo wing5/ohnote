@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>jotfox</title>
+  <!-- Framework CSS -->
+  <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+  <!--[if lt IE 8]>
+    <link href="stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <![endif]-->
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <script src="js/jquery-ui.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(function(){
+	$('<span/>') //just for fun
+      	    .html('fox')
+	    .appendTo('h1');
+
+	$('#imalist').sortable();
+
+	$('textarea').live('focus',  function (){ 
+	    if ( $(this).parent().next().find('textarea').val() !== '' ) {
+		$('<li><textarea></textarea></li>')
+		    .insertAfter( $(this).parent() );
+	    }
+	});
+
+	$('textarea').live('keydown', function (event){
+	    if (event.keyCode == '13') {
+		event.preventDefault();
+		$(this).parent().next().find('textarea').focus();
+	    }
+
+	    if (event.keyCode == '9') {
+		event.preventDefault();
+		$(this).parent().toggleClass('ihaveabullet');
+	    }
+	});
+    });
+
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div id="header"></div>
+    <div id="sidebar">&nbsp;
+    </div>
+      <div id="content">
+        <h1>jot</h1>
+	<ul id="imalist">
+	  <li><textarea class="imatextarea newest"></textarea></li>
+	</ul>
+      </div>
+    <div id="footer"></div>
+  </div>
+</body>
+</html>

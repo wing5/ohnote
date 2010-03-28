@@ -1,0 +1,28 @@
+html, body { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
+
+div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, pre, a, abbr, acronym, address, code, del, dfn, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
+
+blockquote, q { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; quotes: "" ""; }
+blockquote:before, q:before, blockquote:after, q:after { content: ""; }
+
+th, td, caption { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; text-align: left; font-weight: normal; vertical-align: middle; }
+
+table { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; border-collapse: separate; border-spacing: 0; vertical-align: middle; }
+
+a img { border: none; }
+
+html { height: 101%; }
+
+body { height: 101%; }
+body #container { width: 950px; margin: 0 auto; overflow: hidden; display: inline-block; height: 101%; }
+body #container { display: block; }
+body #header, body #footer { display: inline; float: left; margin-right: 10px; width: 950px; }
+* html body #header, * html body #footer { overflow-x: hidden; }
+body #sidebar { display: inline; float: left; margin-right: 10px; width: 310px; }
+* html body #sidebar { overflow-x: hidden; }
+body #content { display: inline; float: left; margin-right: 0; width: 630px; }
+* html body #content { overflow-x: hidden; }
+body #content li { list-style-type: none; width: 400px; background-color: #eee; padding-left: 40px; border: 1px solid #ccc; margin-bottom: 10px; }
+body #content li:hover { cursor: move; cursor: -moz-grab; }
+body #content .ihaveabullet { list-style-type: disc; list-style-position: inside; }
+body #content textarea { border: 1px solid #fff; height: 1.5em; width: 360px; }
