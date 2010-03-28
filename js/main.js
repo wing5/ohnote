@@ -1,19 +1,14 @@
 (function($, undefined) {
 
-    $('textarea').live('focus',  function (){
-        if ( $(this).parent().next().find('textarea').val() !== '' ) {
-            $('<li><textarea></textarea></li>')
-            .insertAfter( $(this).parent() );
-        }
-    });
-
     $('textarea').live('keydown', function (event){
-        if (event.keyCode == '13') {
+        if (event.keyCode == '13') { // enter
             event.preventDefault();
-            $(this).parent().next().find('textarea').focus();
+            $('<li><textarea></textarea></li>')
+            .insertAfter( $(this).parent() )
+            .find('textarea').focus();
         }
 
-        if (event.keyCode == '9') {
+        if (event.keyCode == '27') { // esc
             event.preventDefault();
             $(this).parent().toggleClass('ihaveabullet');
         }
