@@ -1,10 +1,12 @@
 (function($, undefined) {
 
-    var DB = 'http://onessomankesheatioungtho:OCFD11H3Y5f4IWuV1jatigcn@wings.cloudant.com/jotfox';
+    var DB = '/db/jotfox';
 
     $.ajaxSetup({
         'contentType': 'application/json',
         'dataType': 'json',
+        'username': 'onessomankesheatioungtho',
+        'password': 'OCFD11H3Y5f4IWuV1jatigcn'
     });
 
     function reportError(callback) {
@@ -43,9 +45,9 @@
     }
 
     function getStartId(callback) {
-        $.getJSON(DB + '/_all_docs?limit=1', reportError(function(data) {
+        $.getJSON(DB + '/_all_docs?limit=1', {}, function(data) {
             if (callback) callback(data.rows[0].id);
-        }));
+        });
     }
 
     function loadRows(startId) {
@@ -87,7 +89,6 @@
 
         $('#imalist').sortable({
             stop: function(event, ui) {
-                console.log(ui);
                 saveRow(ui.item.next().find('textarea'));
                 saveRow(ui.item.find('textarea'));
             }
