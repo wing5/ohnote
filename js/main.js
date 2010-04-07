@@ -53,41 +53,52 @@
     function loadRows(startId) {
         $.getJSON(DB + '/' + startId, reportError(function(data) {
             $('<li><textarea></textarea></li>').insertBefore($('.newest:first').parent())
-            .find('textarea').val(data.text).data('id', data._id).data('rev', data._rev).data('next', data.next);
+		.find('textarea')
+		.val(data.text).data('id', data._id)
+		.data('rev', data._rev)
+		.data('next', data.next);
             if (data.next) loadRows(data.next);
         }));
     }
+    
+    //hotkeys plugin doesn't overwrite live(), just bind() :(
+    $('#container').bind('keydown', 'ctrl+right', function (event){
+	event.preventDefault();
+	if (event.target.tagName === "TEXTAREA") {
+	    $(event.target).addClass('indented');  
+	};	
+    });
 
     $('textarea').live('keydown', function (event){
         if (event.keyCode == 13) { // enter
             saveRow($(this));
             event.preventDefault();
-            $('<li><textarea></textarea></li>')
-            .insertAfter( $(this).parent() )
-            .find('textarea').focus();
-        }
-
-        if (event.keyCode == 27) { // esc
-            event.preventDefault();
-            $(this).parent().toggleClass('ihaveabullet');
+            $('#clone-army .note')
+		.clone()
+		.insertAfter( $(this).parent() )
+		.find('textarea').focus();
         }
 
         if (event.keyCode == 8) { // backspace
-            if ($(this).val() === '') {
-                event.preventDefault();
-                deleteRow($(this));
-                $(this).parent().prev().find('textarea').focus();
-                $(this).parent().remove();
+            if ( $(this).val() === '' ) {
+		if ($(this).hasClass('indented')) {
+		    $(this).removeClass('indented');
+		} else if ( $('textarea').length > 2 ) { 		    
+                    event.preventDefault();
+                    deleteRow($(this));
+                    $(this).parent().prev().find('textarea').focus();
+                    $(this).parent().remove();
+		}
             }
-        }
+	}
     });
 
     $(function(){
-        $('<span/>') //just for fun
-        .html('fox')
-        .appendTo('h1');
+        $('#clone-army .note')
+            .clone()
+            .appendTo('#unordered-list');
 
-        $('#imalist').sortable({
+        $('#unordered-list').sortable({
             stop: function(event, ui) {
                 saveRow(ui.item.next().find('textarea'));
                 saveRow(ui.item.find('textarea'));

@@ -13,16 +13,27 @@ a img { border: none; }
 
 html { height: 101%; }
 
-body { height: 101%; }
+body { background: #398F39; font-family: Tahoma, Geneva, Verdana, sans-serif; color: #222; }
+body a { color: #222; text-decoration: none; }
+body a:focus { outline: 0; }
 body #container { width: 950px; margin: 0 auto; overflow: hidden; display: inline-block; height: 101%; }
 body #container { display: block; }
-body #header, body #footer { display: inline; float: left; margin-right: 10px; width: 950px; }
-* html body #header, * html body #footer { overflow-x: hidden; }
-body #sidebar { display: inline; float: left; margin-right: 10px; width: 310px; }
-* html body #sidebar { overflow-x: hidden; }
-body #content { display: inline; float: left; margin-right: 0; width: 630px; }
-* html body #content { overflow-x: hidden; }
-body #content li { list-style-type: none; width: 400px; background-color: #eee; padding-left: 40px; border: 1px solid #ccc; margin-bottom: 10px; }
-body #content li:hover { cursor: move; cursor: -moz-grab; }
-body #content .ihaveabullet { list-style-type: disc; list-style-position: inside; }
-body #content textarea { border: 1px solid #fff; height: 1.5em; width: 360px; }
+body #footer { display: inline; float: left; margin-right: 10px; width: 950px; }
+* html body #footer { overflow-x: hidden; }
+body #clone-army { display: none; }
+body #header { display: inline; float: left; margin-right: 0; width: 830px; padding-left: 80px; padding-right: 40px; position: relative; height: 100px; }
+* html body #header { overflow-x: hidden; }
+body #header h2 a { color: #333; font-weight: bold; position: absolute; right: 42px; top: -1px; padding: 10px 15px; background-color: #fff; background-color: #C3E6C3; box-shadow: 1px 1px 2px #000; -webkit-box-shadow: 1px 1px 2px #000; -moz-box-shadow: 1px 1px 2px #000; }
+body #header h1 { font-size: 24px; padding: 60px 0 0 10px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px #000; }
+body #main { display: inline; float: left; margin-right: 0; width: 830px; padding-left: 80px; padding-right: 40px; }
+* html body #main { overflow-x: hidden; }
+body #main #content { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; background-color: white; padding: 15px; -webkit-box-shadow: 1px 1px 2px #000; -moz-box-shadow: 1px 1px 4px #000; box-shadow: 1px 1px 2px #000; margin-bottom: 20px; }
+body #main #content #unordered-list { list-style-type: none; }
+body #main #content .note { overflow: hidden; display: inline-block; margin-left: -62px; padding-bottom: 4px; clear: both; }
+body #main #content .note { display: block; }
+body #main #content .note .grabme, body #main #content .note .checkme, body #main #content .note .fillme { float: left; }
+body #main #content .note .grabme { height: 21px; width: 21px; cursor: -moz-grab; cursor: move; display: block; text-indent: -9999px; background: url(../images/move.png) 4px 4px no-repeat; }
+body #main #content .note .checkme { height: 21px; width: 26px; }
+body #main #content .note .checkme input { margin: 0; position: relative; top: 2px; left: 5px; }
+body #main #content .note .fillme { height: 1.2em; width: 787px; border: 1px solid #fff; margin-left: 15px; }
+body #main #content .note .indented { margin-left: 55px; width: 747px; }

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>jotfox</title>
+  <title>oh note!</title>
   <!-- Framework CSS -->
   <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
@@ -13,19 +13,30 @@
 </head>
 <body>
   <div id="container">
-    <div id="header"></div>
-    <div id="sidebar">&nbsp;
+    <div id="header">
+      <h2><a href="">oh note!</a></h2>
+      <h1>Project Name</h1>
     </div>
+    <div id="main">
       <div id="content">
-        <h1>jot</h1>
-	<ul id="imalist">
-	  <li><textarea class="imatextarea newest"></textarea></li>
+	<ul id="unordered-list">
 	</ul>
       </div>
+    </div>
+    <ul id="clone-army">
+      <li class="note">
+	<a href="#" class="grabme">move button</a>
+	<div class="checkme">
+	  <input type="checkbox" />
+	</div>
+	<textarea class="fillme" rows="1" cols="20"></textarea>
+      </li>
+    </ul>
     <div id="footer"></div>
   </div>
   <script src="js/jquery.js" type="text/javascript"></script>
   <script src="js/jquery-ui.js" type="text/javascript"></script>
+  <script src="js/jquery.hotkeys.js" type="text/javascript"></script>
   <script src="js/main.js" type="text/javascript"></script>
 </body>
 </html>
