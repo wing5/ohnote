@@ -53,36 +53,36 @@
     function loadRows(startId) {
         $.getJSON(DB + '/' + startId, reportError(function(data) {
             $('<li><textarea></textarea></li>').insertBefore($('.newest:first').parent())
-		.find('textarea')
-		.val(data.text).data('id', data._id)
-		.data('rev', data._rev)
-		.data('next', data.next);
+            .find('textarea')
+            .val(data.text).data('id', data._id)
+            .data('rev', data._rev)
+            .data('next', data.next);
             if (data.next) loadRows(data.next);
         }));
     }
-    
+
     //hotkeys plugin doesn't overwrite live(), just bind() :(
     $('#container').bind('keydown', 'ctrl+right', function (event){
-	event.preventDefault();
-	if (event.target.tagName === "TEXTAREA") {
-	    if ( $(event.target).hasClass('child') ) {
-		$(event.target).addClass('baby');
-	    } else {
-		$(event.target).addClass('child');
-	    }
-	} 	
+        event.preventDefault();
+        if (event.target.tagName === "TEXTAREA") {
+            if ( $(event.target).hasClass('child') ) {
+                $(event.target).addClass('baby');
+            } else {
+                $(event.target).addClass('child');
+            }
+        }
     });
 
 /*
     $('#container').bind('keydown', 'ctrl+left', function (event){
-	event.preventDefault();
-	if (event.target.tagName === "TEXTAREA") {
-	    if ( $(event.target).hasClass('baby') ) {
-		$(event.target).removeClass('baby');
-	    } else if ( $(event.target).hasClass('child') ) {
-		$(event.target).removeClass('child');
-	    }
-	}
+    event.preventDefault();
+    if (event.target.tagName === "TEXTAREA") {
+        if ( $(event.target).hasClass('baby') ) {
+        $(event.target).removeClass('baby');
+        } else if ( $(event.target).hasClass('child') ) {
+        $(event.target).removeClass('child');
+        }
+    }
     });
 */
 
@@ -90,43 +90,43 @@
         if (event.keyCode == 13) { // enter
             saveRow($(this));
             event.preventDefault();
-	    $(this).removeClass('hascursor');
+            $(this).removeClass('hascursor');
             $('#clone-army .note')
-		.clone()
-		.insertAfter( $(this).parent() )
-		.find('textarea').focus()
-		.addClass('hascursor');
+            .clone()
+            .insertAfter( $(this).parent() )
+            .find('textarea').focus()
+            .addClass('hascursor');
         }
 
         if (event.keyCode == 8) { // backspace
             if ( $(this).val() === '' ) {
-		if ($(this).hasClass('indented')) {
-		    $(this).removeClass('indented');
-		} else if ( $('textarea').length > 2 ) { 		    
+                if ($(this).hasClass('indented')) {
+                    $(this).removeClass('indented');
+                } else if ( $('textarea').length > 2 ) {
                     event.preventDefault();
                     deleteRow($(this));
                     $(this).parent().prev().find('textarea').focus();
                     $(this).parent().remove();
-		}
+                }
             }
-	}
+        }
     });
 
     $(function(){
         $('#clone-army .note')
-            .clone()
-            .appendTo('#unordered-list')
-	    .find('textarea')
-	    .focus()
-	    .addClass('hascursor');
+        .clone()
+        .appendTo('#unordered-list')
+        .find('textarea')
+        .focus()
+        .addClass('hascursor');
 
-	$('.fillme').focus( function() {
-	    $(this).addClass('hascursor');
-	});
+        $('.fillme').focus( function() {
+            $(this).addClass('hascursor');
+        });
 
-	$('.fillme').blur( function() {
-	    $(this).removeClass('hascursor');
-	});
+        $('.fillme').blur( function() {
+            $(this).removeClass('hascursor');
+        });
 
         $('#unordered-list').sortable({
             stop: function(event, ui) {
