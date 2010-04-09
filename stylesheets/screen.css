@@ -36,4 +36,6 @@ body #main #content .note .grabme { height: 21px; width: 21px; cursor: -moz-grab
 body #main #content .note .checkme { height: 21px; width: 26px; }
 body #main #content .note .checkme input { margin: 0; position: relative; top: 2px; left: 5px; }
 body #main #content .note .fillme { height: 1.2em; width: 787px; border: 1px solid #fff; margin-left: 15px; }
-body #main #content .note .indented { margin-left: 55px; width: 747px; }
+body #main #content .note .fillme.hascursor { border: 1px solid #ccc; outline: none; }
+body #main #content .note .child { margin-left: 55px; width: 747px; }
+body #main #content .note .baby { margin-left: 95px; width: 707px; }

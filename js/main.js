@@ -65,18 +65,37 @@
     $('#container').bind('keydown', 'ctrl+right', function (event){
 	event.preventDefault();
 	if (event.target.tagName === "TEXTAREA") {
-	    $(event.target).addClass('indented');  
-	};	
+	    if ( $(event.target).hasClass('child') ) {
+		$(event.target).addClass('baby');
+	    } else {
+		$(event.target).addClass('child');
+	    }
+	} 	
     });
+
+/*
+    $('#container').bind('keydown', 'ctrl+left', function (event){
+	event.preventDefault();
+	if (event.target.tagName === "TEXTAREA") {
+	    if ( $(event.target).hasClass('baby') ) {
+		$(event.target).removeClass('baby');
+	    } else if ( $(event.target).hasClass('child') ) {
+		$(event.target).removeClass('child');
+	    }
+	}
+    });
+*/
 
     $('textarea').live('keydown', function (event){
         if (event.keyCode == 13) { // enter
             saveRow($(this));
             event.preventDefault();
+	    $(this).removeClass('hascursor');
             $('#clone-army .note')
 		.clone()
 		.insertAfter( $(this).parent() )
-		.find('textarea').focus();
+		.find('textarea').focus()
+		.addClass('hascursor');
         }
 
         if (event.keyCode == 8) { // backspace
@@ -96,7 +115,18 @@
     $(function(){
         $('#clone-army .note')
             .clone()
-            .appendTo('#unordered-list');
+            .appendTo('#unordered-list')
+	    .find('textarea')
+	    .focus()
+	    .addClass('hascursor');
+
+	$('.fillme').focus( function() {
+	    $(this).addClass('hascursor');
+	});
+
+	$('.fillme').blur( function() {
+	    $(this).removeClass('hascursor');
+	});
 
         $('#unordered-list').sortable({
             stop: function(event, ui) {
