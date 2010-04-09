@@ -113,11 +113,11 @@
 
     $(function(){
 
-        $('textarea').live('focusin', function() {
+        $('.fillme').live('focusin', function() {
             $(this).addClass('hascursor');
         });
 
-        $('textarea').live('focusout', function() {
+        $('.fillme').live('focusout', function() {
             $(this).removeClass('hascursor');
         });
 
