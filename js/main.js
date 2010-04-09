@@ -64,27 +64,31 @@
     //hotkeys plugin doesn't overwrite live(), just bind() :(
     $('#container').bind('keydown', 'ctrl+right', function (event){
         event.preventDefault();
-        if (event.target.tagName === "TEXTAREA") {
-            if ( $(event.target).hasClass('child') ) {
-                $(event.target).addClass('baby');
+        var target = $(event.target);
+        if (target.is('.fillme')) {
+            console.log('right');
+            if ( target.hasClass('child') ) {
+                target.addClass('baby');
             } else {
-                $(event.target).addClass('child');
+                target.addClass('child');
             }
         }
     });
 
-/*
+
     $('#container').bind('keydown', 'ctrl+left', function (event){
-    event.preventDefault();
-    if (event.target.tagName === "TEXTAREA") {
-        if ( $(event.target).hasClass('baby') ) {
-        $(event.target).removeClass('baby');
-        } else if ( $(event.target).hasClass('child') ) {
-        $(event.target).removeClass('child');
+        event.preventDefault();
+        var target = $(event.target);
+        if (target.is('.fillme')) {
+            console.log('left');
+            if ( target.hasClass('baby') ) {
+                target.removeClass('baby');
+            } else if ( target.hasClass('child') ) {
+                target.removeClass('child');
+            }
         }
-    }
     });
-*/
+
 
     $('textarea').live('keydown', function (event){
         if (event.keyCode == 13) { // enter
