@@ -95,7 +95,6 @@
             .clone()
             .insertAfter( $(this).parent() )
             .find('textarea').focus()
-            .addClass('hascursor');
         }
 
         if (event.keyCode == 8) { // backspace
@@ -113,20 +112,20 @@
     });
 
     $(function(){
+
+        $('textarea').live('focusin', function() {
+            $(this).addClass('hascursor');
+        });
+
+        $('textarea').live('focusout', function() {
+            $(this).removeClass('hascursor');
+        });
+
         $('#clone-army .note')
         .clone()
         .appendTo('#unordered-list')
         .find('textarea')
-        .focus()
-        .addClass('hascursor');
-
-        $('.fillme').focus( function() {
-            $(this).addClass('hascursor');
-        });
-
-        $('.fillme').blur( function() {
-            $(this).removeClass('hascursor');
-        });
+        .focus();
 
         $('#unordered-list').sortable({
             stop: function(event, ui) {
