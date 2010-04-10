@@ -1,64 +1,60 @@
 (function($, undefined) {
 
-    var DB = '/db/jotfox';
+    CouchDB.urlPrefix = '/db';
+    CouchDB.login('onessomankesheatioungtho','OCFD11H3Y5f4IWuV1jatigcn');
+    var DB;
+    var PROJECT;
 
-    $.ajaxSetup({
-        'contentType': 'application/json',
-        'dataType': 'json',
-        'username': 'onessomankesheatioungtho',
-        'password': 'OCFD11H3Y5f4IWuV1jatigcn'
-    });
-
-    function reportError(callback) {
-        return function(data, textStatus) {
-            if (data.error) {
-                console.log(data);
-            } else {
-                if (callback) callback(data);
-            }
-        }
+    function serializeNote(el) {
+        return {
+            _id: el.data('id') || undefined,
+            _rev: el.data('rev') || undefined,
+            text: el.find('textarea').val()
+        };
     }
 
-    function saveRow(el, next) {
-        var doc = { text: el.val() };
-        if (el.data('id')) { doc._id = el.data('id'); doc._rev = el.data('rev'); next: el.data('next'); }
-        if (next) doc.next = next;
-        $.post(DB, JSON.stringify(doc), reportError(function(data) {
-            el.data('id', data.id);
-            el.data('rev', data.rev);
-            var prev = el.parent().prev();
-            if (!next && prev.length) saveRow(prev.find('textarea'), data.id);
-        }));
+    function saveNote(el) {
+        var doc = serializeNote(el);
+        var isNew = !doc._id;
+
+        // skip if new and empty
+        if (isNew && !doc.text) return;
+        // skip if not changed
+        if (doc.text == el.data('text')) return;
+
+        var result = DB.save(doc);
+        el.data('id', result.id).data('rev', result.rev).data('text', doc.text);
+
+        console.log(doc._id);
+        if (isNew) saveProject();
     }
 
-    function linkRows(prev, next) {
-        if (prev.length)
-            saveRow(prev.find('textarea'), next.length ? next.find('textarea').data('id') : null);
+    function deleteNote(el) {
+        var doc = serializeNote(el);
+        if (!doc._id) return;
+        DB.deleteDoc(doc);
+        el.remove();
+        saveProject();
     }
 
-    function deleteRow(el) {
-        linkRows(el.parent().prev(), el.parent().next());
-        var id = el.data('id');
-        if (!id) return;
-        var rev = el.data('rev');
-        $.ajax({ type: 'DELETE', url: DB + '/' + id + '?rev=' + rev, success: reportError(), error: reportError()});
+    function loadProject(id) {
+        var project = DB.open(id);
+        $.each(project.children, function(i, id) { loadNote(id) });
+        addNote();
+        $('#header h1').text(project.title);
+        return project;
     }
 
-    function getStartId(callback) {
-        $.getJSON(DB + '/_all_docs?limit=1', {}, function(data) {
-            if (callback) callback(data.rows[0].id);
-        });
+    function saveProject() {
+        PROJECT.children = $('#unordered-list').children().map(function() {
+            return $(this).data('id');
+        }).get();
+        return DB.save(PROJECT);
     }
 
-    function loadRows(startId) {
-        $.getJSON(DB + '/' + startId, reportError(function(data) {
-            $('<li><textarea></textarea></li>').insertBefore($('.newest:first').parent())
-            .find('textarea')
-            .val(data.text).data('id', data._id)
-            .data('rev', data._rev)
-            .data('next', data.next);
-            if (data.next) loadRows(data.next);
-        }));
+    function loadNote(id) {
+        var note = DB.open(id);
+        addNote(note.text).data('id', note._id).data('rev', note._rev);
     }
 
     //hotkeys plugin doesn't overwrite live(), just bind() :(
@@ -66,7 +62,6 @@
         event.preventDefault();
         var target = $(event.target);
         if (target.is('.fillme')) {
-            console.log('right');
             if ( target.hasClass('child') ) {
                 target.addClass('baby');
             } else {
@@ -80,7 +75,6 @@
         event.preventDefault();
         var target = $(event.target);
         if (target.is('.fillme')) {
-            console.log('left');
             if ( target.hasClass('baby') ) {
                 target.removeClass('baby');
             } else if ( target.hasClass('child') ) {
@@ -89,16 +83,17 @@
         }
     });
 
+    function addNote(text, prev) {
+        var note = $('#clone-army .note').clone();
+        prev ? note.insertAfter( prev ) : note.appendTo('#unordered-list');
+        note.find('textarea').val(text || '').focus()
+        return note;
+    }
 
     $('textarea').live('keydown', function (event){
         if (event.keyCode == 13) { // enter
-            saveRow($(this));
             event.preventDefault();
-            $(this).removeClass('hascursor');
-            $('#clone-army .note')
-            .clone()
-            .insertAfter( $(this).parent() )
-            .find('textarea').focus()
+            addNote('', $(this).parent());
         }
 
         if (event.keyCode == 8) { // backspace
@@ -107,9 +102,8 @@
                     $(this).removeClass('indented');
                 } else if ( $('textarea').length > 2 ) {
                     event.preventDefault();
-                    deleteRow($(this));
                     $(this).parent().prev().find('textarea').focus();
-                    $(this).parent().remove();
+                    deleteNote($(this).parent());
                 }
             }
         }
@@ -123,24 +117,17 @@
 
         $('.fillme').live('focusout', function() {
             $(this).removeClass('hascursor');
+            saveNote($(this).parent());
         });
-
-        $('#clone-army .note')
-        .clone()
-        .appendTo('#unordered-list')
-        .find('textarea')
-        .focus();
 
         $('#unordered-list').sortable({
             stop: function(event, ui) {
-                saveRow(ui.item.next().find('textarea'));
-                saveRow(ui.item.find('textarea'));
+                saveProject();
             }
         });
 
-        getStartId(function(id) {
-            loadRows(id);
-        });
+        DB = new CouchDB('jotfox');
+        PROJECT = loadProject('default');
     });
 
 })(jQuery);
