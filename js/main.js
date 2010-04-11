@@ -41,7 +41,7 @@
         var project = DB.open(id);
         $.each(project.children, function(i, id) { loadNote(id) });
         addNote();
-        $('#header h1').text(project.title);
+        $('#header h1 input').val(project.title);
         return project;
     }
 
@@ -49,6 +49,7 @@
         PROJECT.children = $('#unordered-list').children().map(function() {
             return $(this).data('id');
         }).get();
+        PROJECT.title = $('h1 input').val();
         return DB.save(PROJECT);
     }
 
@@ -111,13 +112,20 @@
 
     $(function(){
 
-        $('.fillme').live('focusin', function() {
+        $('input,textarea').live('focusin', function() {
             $(this).addClass('hascursor');
         });
 
-        $('.fillme').live('focusout', function() {
+        $('input,textarea').live('focusout', function() {
             $(this).removeClass('hascursor');
+        });
+
+        $('.fillme').live('focusout', function() {
             saveNote($(this).parent());
+        });
+
+        $('h1 input').live('focusout', function() {
+            saveProject();
         });
 
         $('#unordered-list').sortable({

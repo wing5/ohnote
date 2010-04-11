@@ -24,7 +24,9 @@ body #clone-army { display: none; }
 body #header { display: inline; float: left; margin-right: 0; width: 830px; padding-left: 80px; padding-right: 40px; position: relative; height: 100px; }
 * html body #header { overflow-x: hidden; }
 body #header h2 a { color: #333; font-weight: bold; position: absolute; right: 42px; top: -1px; padding: 10px 15px; background-color: #fff; background-color: #C3E6C3; box-shadow: 1px 1px 2px #000; -webkit-box-shadow: 1px 1px 2px #000; -moz-box-shadow: 1px 1px 2px #000; }
-body #header h1 { font-size: 24px; padding: 60px 0 0 10px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px #000; }
+body #header h1 input { font-size: 24px; margin: 60px 0 20px 10px; padding: 5px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px #000; width: 90%; }
+body #header h1 input { background: transparent; border: none; outline: none; }
+body #header h1 input.hascursor { background: white; border: 1px solid #ccc; outline: none; color: black; text-shadow: none; text-shadow: none; }
 body #main { display: inline; float: left; margin-right: 0; width: 830px; padding-left: 80px; padding-right: 40px; }
 * html body #main { overflow-x: hidden; }
 body #main #content { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; background-color: white; padding: 15px; -webkit-box-shadow: 1px 1px 2px #000; -moz-box-shadow: 1px 1px 4px #000; box-shadow: 1px 1px 2px #000; margin-bottom: 20px; }
