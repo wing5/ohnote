@@ -47,7 +47,9 @@
         DB.openDoc(id, {
             success: function(project) {
                 PROJECT = project;
-                $.each(project.children, function(i, id) { loadNote(id) });
+                $.each(project.children, function(i, id) {
+                    loadNote(id, addNote());
+                });
                 if (!project.children.length) addNote();
                 $('#header h1 input').val(project.title);
             }
@@ -62,10 +64,11 @@
         DB.saveDoc(PROJECT);
     }
 
-    function loadNote(id) {
+    function loadNote(id, el) {
         DB.openDoc(id, {
             success: function(note) {
-                addNote(note.text).data('id', note._id).data('rev', note._rev);
+                el = el || addNote();
+                el.data('id', note._id).data('rev', note._rev).find('textarea').val(note.text);
             }
         });
     }
