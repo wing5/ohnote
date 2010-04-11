@@ -1,8 +1,12 @@
 (function($, undefined) {
 
-    CouchDB.urlPrefix = '/db';
-    CouchDB.login('onessomankesheatioungtho','OCFD11H3Y5f4IWuV1jatigcn');
-    var DB;
+    $.couch.urlPrefix = '/db';
+    $.couch.login({
+        username: 'onessomankesheatioungtho',
+        password: 'OCFD11H3Y5f4IWuV1jatigcn'
+    });
+
+    var DB = $.couch.db('jotfox');
     var PROJECT;
 
     function serializeNote(el) {
@@ -22,27 +26,32 @@
         // skip if not changed
         if (doc.text == el.data('text')) return;
 
-        var result = DB.save(doc);
-        el.data('id', result.id).data('rev', result.rev).data('text', doc.text);
-
-        console.log(doc._id);
-        if (isNew) saveProject();
+        DB.saveDoc(doc, {
+            success: function(result) {
+                el.data('id', result.id).data('rev', result.rev).data('text', doc.text);
+                if (isNew) saveProject();
+            }
+        });
     }
 
     function deleteNote(el) {
         var doc = serializeNote(el);
-        if (!doc._id) return;
-        DB.deleteDoc(doc);
         el.remove();
-        saveProject();
+        if (!doc._id) return;
+        DB.removeDoc(doc, {
+            success: saveProject
+        });
     }
 
     function loadProject(id) {
-        var project = DB.open(id);
-        $.each(project.children, function(i, id) { loadNote(id) });
-        addNote();
-        $('#header h1 input').val(project.title);
-        return project;
+        DB.openDoc(id, {
+            success: function(project) {
+                PROJECT = project;
+                $.each(project.children, function(i, id) { loadNote(id) });
+                if (!project.children.length) addNote();
+                $('#header h1 input').val(project.title);
+            }
+        });
     }
 
     function saveProject() {
@@ -50,12 +59,15 @@
             return $(this).data('id');
         }).get();
         PROJECT.title = $('h1 input').val();
-        return DB.save(PROJECT);
+        DB.saveDoc(PROJECT);
     }
 
     function loadNote(id) {
-        var note = DB.open(id);
-        addNote(note.text).data('id', note._id).data('rev', note._rev);
+        DB.openDoc(id, {
+            success: function(note) {
+                addNote(note.text).data('id', note._id).data('rev', note._rev);
+            }
+        });
     }
 
     //hotkeys plugin doesn't overwrite live(), just bind() :(
@@ -134,8 +146,7 @@
             }
         });
 
-        DB = new CouchDB('jotfox');
-        PROJECT = loadProject('default');
+        loadProject('default');
     });
 
 })(jQuery);
