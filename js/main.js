@@ -89,7 +89,7 @@
             success: function(note) {
                 stopLoading(el);
                 el = el || addNote();
-                el.data('id', note._id).data('rev', note._rev).find('textarea').val(note.text);
+                el.data('id', note._id).data('rev', note._rev).data('text', note.text).find('textarea').val(note.text);
                 if (note.checked) {
                     el.addClass('checked').find('.checkme input').attr('checked', 'checked');
                 }
