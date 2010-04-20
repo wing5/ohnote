@@ -24,6 +24,13 @@
         };
     }
 
+    function startLoading(el) {
+        el.addClass('loading');
+    }
+    function stopLoading(el) {
+        el.removeClass('loading');
+    }
+
     function saveNote(el, force) {
         var doc = serializeNote(el);
         var isNew = !doc._id;
@@ -31,8 +38,10 @@
         // skip if not changed
         if (!force && (doc.text == el.data('text'))) return;
 
+        startLoading(el);
         DB.saveDoc(doc, {
             success: function(result) {
+                stopLoading(el);
                 el.data('id', result.id).data('rev', result.rev).data('text', doc.text);
                 if (isNew) saveProject();
             },
@@ -75,11 +84,15 @@
     }
 
     function loadNote(id, el) {
+        startLoading(el);
         DB.openDoc(id, {
             success: function(note) {
+                stopLoading(el);
                 el = el || addNote();
                 el.data('id', note._id).data('rev', note._rev).find('textarea').val(note.text);
-                if (note.checked) el.find('.checkme input').attr('checked', 'checked').trigger('change');
+                if (note.checked) {
+                    el.addClass('checked').find('.checkme input').attr('checked', 'checked');
+                }
             },
             error: showError
         });
