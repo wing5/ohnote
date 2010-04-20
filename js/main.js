@@ -27,8 +27,6 @@
         var doc = serializeNote(el);
         var isNew = !doc._id;
 
-        // skip if new and empty
-        if (isNew && !doc.text) return;
         // skip if not changed
         if (doc.text == el.data('text')) return;
 
@@ -46,7 +44,6 @@
         el.remove();
         if (!doc._id) return;
         DB.removeDoc(doc, {
-            success: saveProject,
             error: showError
         });
     }
@@ -61,9 +58,9 @@
                 if (!project.children.length) addNote();
                 $('#header h1 input').val(project.title);
             },
-            error: function(a,b,c) {
+            error: function(status,error,reason) {
                 addNote();
-                showError(a,b,c);
+                showError(status,error,reason);
             }
         });
     }
@@ -73,7 +70,7 @@
             return $(this).data('id');
         }).get();
         PROJECT.title = $('h1 input').val();
-        DB.saveDoc(PROJECT);
+        DB.saveDoc(PROJECT, { error: showError });
     }
 
     function loadNote(id, el) {
@@ -115,25 +112,39 @@
     function addNote(text, prev) {
         var note = $('#clone-army .note').clone();
         prev ? note.insertAfter( prev ) : note.appendTo('#unordered-list');
-        note.find('textarea').val(text || '').focus()
+        note.find('textarea').val(text || '');
         return note;
     }
 
     $('textarea').live('keydown', function (event){
         if (event.keyCode == 13) { // enter
             event.preventDefault();
-            var note = addNote('', $(this).parent());
+            var range = $(this).caret();
+            var current = $(this).val().substring(0, range.start);
+            var next = $(this).val().substring(range.end);
+            $(this).text(current);
+            var note = addNote(next, $(this).parent());
             saveNote(note);
+            note.find('textarea').caret(0,0);
         }
 
         if (event.keyCode == 8) { // backspace
-            if ( $(this).val() === '' ) {
-                if ($(this).hasClass('indented')) {
-                    $(this).removeClass('indented');
-                } else if ( $('textarea').length > 2 ) {
-                    event.preventDefault();
-                    $(this).parent().prev().find('textarea').focus();
-                    deleteNote($(this).parent());
+            var selection = $(this).caret();
+            if ( $(this).val().substring(0, selection.start) === '' ) {
+                if ($(this).hasClass('baby')) {
+                    $(this).removeClass('baby');
+                } else if ($(this).hasClass('child')) {
+                    $(this).removeClass('child');
+                } else {
+                    var previous = $(this).parent().prev().find('textarea');
+                    if (previous.length) {
+                        event.preventDefault();
+                        var pos = previous.val().length;
+                        previous.val(previous.val() + $(this).val().substring(selection.end));
+                        saveNote(previous.parent());
+                        deleteNote($(this).parent());
+                        previous.caret(pos, pos);
+                    }
                 }
             }
         }
