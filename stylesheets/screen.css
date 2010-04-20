@@ -43,6 +43,7 @@ body #main #content .note .fillme { height: 1.2em; width: 787px; border: 1px sol
 body #main #content .note .fillme.hascursor { border: 1px solid #cccccc; outline: none; }
 body #main #content .note .child { margin-left: 55px; width: 747px; }
 body #main #content .note .baby { margin-left: 95px; width: 707px; }
+body #main #content .note.checked textarea { color: #cccccc; }
 
 #messages { color: #333333; font-size: 12px; position: absolute; width: 100%; left: 0; }
 #messages li { margin-left: 25%; margin-right: 25%; padding: 5px 15px; background-color: #ffcc00; box-shadow: 1px 1px 2px black; -webkit-box-shadow: 1px 1px 2px black; -moz-box-shadow: 1px 1px 2px black; list-style-type: none; }

@@ -19,16 +19,17 @@
         return {
             _id: el.data('id') || undefined,
             _rev: el.data('rev') || undefined,
-            text: el.find('textarea').val()
+            text: el.find('textarea').val(),
+            checked: el.hasClass('checked')
         };
     }
 
-    function saveNote(el) {
+    function saveNote(el, force) {
         var doc = serializeNote(el);
         var isNew = !doc._id;
 
         // skip if not changed
-        if (doc.text == el.data('text')) return;
+        if (!force && (doc.text == el.data('text'))) return;
 
         DB.saveDoc(doc, {
             success: function(result) {
@@ -78,6 +79,7 @@
             success: function(note) {
                 el = el || addNote();
                 el.data('id', note._id).data('rev', note._rev).find('textarea').val(note.text);
+                if (note.checked) el.find('.checkme input').attr('checked', 'checked').trigger('change');
             },
             error: showError
         });
@@ -158,6 +160,16 @@
 
         $('input,textarea').live('focusout', function() {
             $(this).removeClass('hascursor');
+        });
+
+        $('.checkme input').live('change', function() {
+            var note = $(this).parents('.note:first');
+            if ($(this).attr('checked')) {
+                note.addClass('checked');
+            } else {
+                note.removeClass('checked')
+            }
+            saveNote(note, true);
         });
 
         $('.fillme').live('focusout', function() {
