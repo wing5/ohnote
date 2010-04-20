@@ -13,7 +13,9 @@ a img { border: none; }
 
 html { height: 101%; }
 
-body { background: #398f39; font-family: Tahoma, Geneva, Verdana, sans-serif; color: #222222; }
+input, textarea { font: inherit; }
+
+body { background: #66aabb; font: 13px/18px Corbel, "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif; color: #222222; }
 body a { color: #222222; text-decoration: none; }
 body a:focus { outline: 0; }
 body #container { width: 950px; margin: 0 auto; overflow: hidden; display: inline-block; height: 101%; }
@@ -23,9 +25,9 @@ body #footer { display: inline; float: left; margin-right: 10px; width: 950px; }
 body #clone-army { display: none; }
 body #header { display: inline; float: left; margin-right: 0; width: 830px; padding-left: 80px; padding-right: 40px; position: relative; height: 100px; }
 * html body #header { overflow-x: hidden; }
-body #header h2 a { color: #333333; font-weight: bold; position: absolute; right: 42px; top: -1px; padding: 10px 15px; background-color: white; background-color: #c3e6c3; box-shadow: 1px 1px 2px black; -webkit-box-shadow: 1px 1px 2px black; -moz-box-shadow: 1px 1px 2px black; }
-body #header h1 { padding: 5px; margin: 60px 0 20px 10px; color: white; width: 90%; }
-body #header h1 input { font-weight: bold; font-size: 24px; color: white; text-shadow: 1px 1px 2px black; background: transparent; border: none; outline: none; }
+body #header h2 a { color: white; font-weight: bold; position: absolute; right: 42px; top: -1px; padding: 10px 15px; background-color: #bb66aa; box-shadow: 1px 1px 2px black; -webkit-box-shadow: 1px 1px 2px black; -moz-box-shadow: 1px 1px 2px black; }
+body #header h1 { padding: 5px; margin: 60px 0 20px 10px; color: white; font-weight: bold; font-size: 24px; }
+body #header h1 input { width: 90%; color: white; text-shadow: 1px 1px 2px black; background: transparent; border: none; outline: none; }
 body #header h1 input.hascursor { background: white; border: 1px solid #cccccc; outline: none; color: black; text-shadow: none; text-shadow: none; }
 body #main { display: inline; float: left; margin-right: 0; width: 830px; padding-left: 80px; padding-right: 40px; }
 * html body #main { overflow-x: hidden; }
