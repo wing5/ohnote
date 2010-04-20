@@ -4,7 +4,7 @@ var url = require('url');
 var paperboy = require('./paperboy/lib/paperboy');
 
 var PORT = 8008;
-var HOST = 'http://wings.cloudant.com:5984';
+var HOST = 'http://wings.cloudant.com';
 var STATIC = '..';
 
 function forwardRequest(inRequest, inResponse, uri, headers) {
@@ -12,8 +12,9 @@ function forwardRequest(inRequest, inResponse, uri, headers) {
     uri = url.parse(uri);
     var out = http.createClient(uri.port || 80, uri.hostname);
     var path = uri.pathname + (uri.search || '');
+    var host = uri.port ? uri.hostname + ':' + uri.port : uri.hostname;
     headers = process.mixin(inRequest.headers, headers, {
-        'host': uri.hostname + ':' + uri.port,
+        'host': host,
         'x-forwarded-for': inRequest.connection.remoteAddress
     });
 
