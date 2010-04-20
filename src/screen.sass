@@ -1,3 +1,4 @@
+//! cd .. && compass --update .
 // This import applies a global reset to any page that imports this stylesheet.
 @import blueprint/reset.sass
 // To configure blueprint, edit the partials/base.sass file.
@@ -43,11 +44,25 @@ body
       :-webkit-box-shadow 1px 1px 2px #000
       :-moz-box-shadow 1px 1px 2px #000
     h1
-      :font-size 24px
-      :padding 60px 0 0 10px
-      :font-weight bold
+      padding: 5px
+      margin: 60px 0 20px 10px
       :color #fff
-      :text-shadow 1px 1px 2px #000
+      width: 90%
+      input
+        font-weight: bold
+        font-size: 24px
+        color: white
+        text-shadow: 1px 1px 2px #000
+        background: transparent
+        border: none
+        outline: none
+      input.hascursor
+        background: white
+        border: 1px solid #ccc
+        outline: none
+        color: black
+        text-shadow: none
+        text-shadow: none
   #main
     +column(21, true)
     +prepend(2)
@@ -102,7 +117,18 @@ body
           :margin-left 95px
           :width 707px
 
-
-
-
-
+#messages
+  color: #333
+  font-size: 12px
+  position: absolute
+  width: 100%
+  left: 0
+  li
+    margin-left: 25%
+    margin-right: 25%
+    :padding 5px 15px
+    :background-color #fc0
+    :box-shadow 1px 1px 2px #000
+    :-webkit-box-shadow 1px 1px 2px #000
+    :-moz-box-shadow 1px 1px 2px #000
+    list-style-type: none

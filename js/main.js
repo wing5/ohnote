@@ -9,6 +9,12 @@
     var DB = $.couch.db('jotfox');
     var PROJECT;
 
+    function showError(status, error, reason) {
+        $('<li></li>').text(reason).appendTo('#messages').fadeIn().delay(5000).fadeOut(function() {
+            $(this).remove();
+        });
+    }
+
     function serializeNote(el) {
         return {
             _id: el.data('id') || undefined,
@@ -30,7 +36,8 @@
             success: function(result) {
                 el.data('id', result.id).data('rev', result.rev).data('text', doc.text);
                 if (isNew) saveProject();
-            }
+            },
+            error: showError
         });
     }
 
@@ -39,7 +46,8 @@
         el.remove();
         if (!doc._id) return;
         DB.removeDoc(doc, {
-            success: saveProject
+            success: saveProject,
+            error: showError
         });
     }
 
@@ -52,6 +60,10 @@
                 });
                 if (!project.children.length) addNote();
                 $('#header h1 input').val(project.title);
+            },
+            error: function(a,b,c) {
+                addNote();
+                showError(a,b,c);
             }
         });
     }
@@ -69,7 +81,8 @@
             success: function(note) {
                 el = el || addNote();
                 el.data('id', note._id).data('rev', note._rev).find('textarea').val(note.text);
-            }
+            },
+            error: showError
         });
     }
 
@@ -109,7 +122,8 @@
     $('textarea').live('keydown', function (event){
         if (event.keyCode == 13) { // enter
             event.preventDefault();
-            addNote('', $(this).parent());
+            var note = addNote('', $(this).parent());
+            saveNote(note);
         }
 
         if (event.keyCode == 8) { // backspace

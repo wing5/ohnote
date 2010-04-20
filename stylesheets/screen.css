@@ -3,7 +3,7 @@ html, body { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style:
 div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, pre, a, abbr, acronym, address, code, del, dfn, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
 
 blockquote, q { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; quotes: "" ""; }
-blockquote:before, q:before, blockquote:after, q:after { content: ""; }
+blockquote:before, blockquote:after, q:before, q:after { content: ""; }
 
 th, td, caption { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; text-align: left; font-weight: normal; vertical-align: middle; }
 
@@ -13,8 +13,8 @@ a img { border: none; }
 
 html { height: 101%; }
 
-body { background: #398F39; font-family: Tahoma, Geneva, Verdana, sans-serif; color: #222; }
-body a { color: #222; text-decoration: none; }
+body { background: #398f39; font-family: Tahoma, Geneva, Verdana, sans-serif; color: #222222; }
+body a { color: #222222; text-decoration: none; }
 body a:focus { outline: 0; }
 body #container { width: 950px; margin: 0 auto; overflow: hidden; display: inline-block; height: 101%; }
 body #container { display: block; }
@@ -23,13 +23,13 @@ body #footer { display: inline; float: left; margin-right: 10px; width: 950px; }
 body #clone-army { display: none; }
 body #header { display: inline; float: left; margin-right: 0; width: 830px; padding-left: 80px; padding-right: 40px; position: relative; height: 100px; }
 * html body #header { overflow-x: hidden; }
-body #header h2 a { color: #333; font-weight: bold; position: absolute; right: 42px; top: -1px; padding: 10px 15px; background-color: #fff; background-color: #C3E6C3; box-shadow: 1px 1px 2px #000; -webkit-box-shadow: 1px 1px 2px #000; -moz-box-shadow: 1px 1px 2px #000; }
-body #header h1 input { font-size: 24px; margin: 60px 0 20px 10px; padding: 5px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px #000; width: 90%; }
-body #header h1 input { background: transparent; border: none; outline: none; }
-body #header h1 input.hascursor { background: white; border: 1px solid #ccc; outline: none; color: black; text-shadow: none; text-shadow: none; }
+body #header h2 a { color: #333333; font-weight: bold; position: absolute; right: 42px; top: -1px; padding: 10px 15px; background-color: white; background-color: #c3e6c3; box-shadow: 1px 1px 2px black; -webkit-box-shadow: 1px 1px 2px black; -moz-box-shadow: 1px 1px 2px black; }
+body #header h1 { padding: 5px; margin: 60px 0 20px 10px; color: white; width: 90%; }
+body #header h1 input { font-weight: bold; font-size: 24px; color: white; text-shadow: 1px 1px 2px black; background: transparent; border: none; outline: none; }
+body #header h1 input.hascursor { background: white; border: 1px solid #cccccc; outline: none; color: black; text-shadow: none; text-shadow: none; }
 body #main { display: inline; float: left; margin-right: 0; width: 830px; padding-left: 80px; padding-right: 40px; }
 * html body #main { overflow-x: hidden; }
-body #main #content { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; background-color: white; padding: 15px; -webkit-box-shadow: 1px 1px 2px #000; -moz-box-shadow: 1px 1px 4px #000; box-shadow: 1px 1px 2px #000; margin-bottom: 20px; }
+body #main #content { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; background-color: white; padding: 15px; -webkit-box-shadow: 1px 1px 2px black; -moz-box-shadow: 1px 1px 4px black; box-shadow: 1px 1px 2px black; margin-bottom: 20px; }
 body #main #content #unordered-list { list-style-type: none; }
 body #main #content .note { overflow: hidden; display: inline-block; margin-left: -62px; padding-bottom: 4px; clear: both; }
 body #main #content .note { display: block; }
@@ -37,7 +37,10 @@ body #main #content .note .grabme, body #main #content .note .checkme, body #mai
 body #main #content .note .grabme { height: 21px; width: 21px; cursor: -moz-grab; cursor: move; display: block; text-indent: -9999px; background: url(../images/move.png) 4px 4px no-repeat; }
 body #main #content .note .checkme { height: 21px; width: 26px; }
 body #main #content .note .checkme input { margin: 0; position: relative; top: 2px; left: 5px; }
-body #main #content .note .fillme { height: 1.2em; width: 787px; border: 1px solid #fff; margin-left: 15px; }
-body #main #content .note .fillme.hascursor { border: 1px solid #ccc; outline: none; }
+body #main #content .note .fillme { height: 1.2em; width: 787px; border: 1px solid white; margin-left: 15px; }
+body #main #content .note .fillme.hascursor { border: 1px solid #cccccc; outline: none; }
 body #main #content .note .child { margin-left: 55px; width: 747px; }
 body #main #content .note .baby { margin-left: 95px; width: 707px; }
+
+#messages { color: #333333; font-size: 12px; position: absolute; width: 100%; left: 0; }
+#messages li { margin-left: 25%; margin-right: 25%; padding: 5px 15px; background-color: #ffcc00; box-shadow: 1px 1px 2px black; -webkit-box-shadow: 1px 1px 2px black; -moz-box-shadow: 1px 1px 2px black; list-style-type: none; }
